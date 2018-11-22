@@ -1,5 +1,7 @@
 package com.chenjiang.endurance.entity;
 
+import java.util.Date;
+
 public class Article {
     private Integer id;
     private String title;
@@ -8,6 +10,24 @@ public class Article {
     private String abstractContent;
     private String content;
     private String rawFileLink;
+    private Date createTime;
+    private Integer access;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getAccess() {
+        return access;
+    }
+
+    public void setAccess(Integer access) {
+        this.access = access;
+    }
 
     public Integer getId() {
         return id;

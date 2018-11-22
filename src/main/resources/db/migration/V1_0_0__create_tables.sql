@@ -1,3 +1,4 @@
+# 用户表
 CREATE TABLE `T_USER` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `USER_ID` int(11) NOT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE `T_USER` (
   UNIQUE KEY `USER_ID` (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+# token表
 CREATE TABLE `T_TOKEN` (
   `id` int(11) primary key auto_increment,
   `token` varchar(64) NOT NULL ,
@@ -32,16 +34,15 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE` (
   `title` varchar(64) not null ,
   `tags` varchar(128) not null ,
   `type` varchar(64) not null ,
-  `abstract` varchar(128) not null ,
+  `abstract` text not null ,
   `content` text not null ,
   `raw_file_link` varchar(128) null ,
+  `access` int not null default 0,
 
   `version` int(11) not null default 0,
   `create_time` timestamp not null default current_timestamp,
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
-
-
 
 
 # CREATE TABLE `T_CUSTOMER` (

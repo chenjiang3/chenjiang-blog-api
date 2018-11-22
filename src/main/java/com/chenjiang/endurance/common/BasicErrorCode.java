@@ -9,7 +9,9 @@ public enum BasicErrorCode {
 
     DEFAULT("未知错误", "base.error.unknow_error"),
 
-    UNAUTHORIZED("权限错误", "base.error.unauthorized")
+    UNAUTHORIZED("权限错误", "base.error.unauthorized"),
+
+    ABSTRACT_TOO_LONG("文章摘要超过长度限制", "base.error.abstract_too_long")
     ;
 
     BasicErrorCode(String message, String code) {
