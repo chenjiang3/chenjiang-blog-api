@@ -12,6 +12,15 @@ public class Article {
     private String rawFileLink;
     private Date createTime;
     private Integer access;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public Date getCreateTime() {
         return createTime;

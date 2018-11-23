@@ -38,14 +38,25 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE` (
   `content` text not null ,
   `raw_file_link` varchar(128) null ,
   `access` int not null default 0,
+  `source` varchar(64) not null ,
 
   `version` int(11) not null default 0,
   `create_time` timestamp not null default current_timestamp,
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
-update T_ARTICLE set access=(access + 1) where id=1;
-select access from T_ARTICLE;
+# 文章来源表
+CREATE TABLE IF NOT EXISTS `T_ARTICLE_SOURCE` (
+  `id` int(11) primary key auto_increment,
+  `name` varchar(64) not null ,
+
+  `version` int(11) not null default 0,
+  `create_time` timestamp not null default current_timestamp,
+  `update_time` timestamp null default null
+) engine = InnoDB charset=utf8;
+
+desc T_ARTICLE_SOURCE;
+select * from T_ARTICLE;
 
 # CREATE TABLE `T_CUSTOMER` (
 #   `id` int(11) primary key auto_increment,

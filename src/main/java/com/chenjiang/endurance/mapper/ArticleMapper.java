@@ -44,6 +44,7 @@ public interface ArticleMapper {
                     "content, " +
                     "raw_file_link as rawFileLink, " +
                     "access, " +
+                    "source, " +
                     "create_time as createTime " +
                     "from T_ARTICLE where id = #{id}";
         }
@@ -58,6 +59,7 @@ public interface ArticleMapper {
                     "content, " +
                     "raw_file_link as rawFileLink, " +
                     "access, " +
+                    "source, " +
                     "create_time as createTime " +
                     "from T_ARTICLE WHERE 1=1");
             System.out.println("查询sql == " + sql.toString());
@@ -78,6 +80,7 @@ public interface ArticleMapper {
                     .VALUES("content", "#{content}")
                     .VALUES("raw_file_link", "#{rawFileLink}")
                     .VALUES("access", "#{access}")
+                    .VALUES("source", "#{source}")
                     .VALUES("create_time", "#{createTime}");
         }
     }
