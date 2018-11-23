@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
     List<Article> articleList(int pageIndex, int pageSize);
-    public boolean add(Article article);
+    boolean add(Article article);
+    Article getById(Integer id);
+    int increaseAccess(Integer id);
 }

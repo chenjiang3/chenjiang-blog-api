@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE` (
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
+update T_ARTICLE set access=(access + 1) where id=1;
+select access from T_ARTICLE;
 
 # CREATE TABLE `T_CUSTOMER` (
 #   `id` int(11) primary key auto_increment,

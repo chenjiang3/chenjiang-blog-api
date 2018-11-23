@@ -5,6 +5,7 @@ import com.chenjiang.endurance.entity.Article;
 import com.chenjiang.endurance.exception.ArticleException;
 import com.chenjiang.endurance.mapper.ArticleMapper;
 import com.github.pagehelper.PageHelper;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.articleList(new HashMap<>());
     }
 
+    @Override
+    public Article getById(Integer id) {
+        return articleMapper.getById(id);
+    }
+
+    @Override
+    public int increaseAccess(Integer id) {
+        return articleMapper.increaseAccess(id);
+    }
 }

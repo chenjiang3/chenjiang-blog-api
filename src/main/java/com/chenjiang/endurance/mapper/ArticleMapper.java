@@ -6,6 +6,7 @@ import com.chenjiang.endurance.entity.Article;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,22 +22,31 @@ public interface ArticleMapper {
     @SelectProvider(type = ArticleSqlProvider.class, method = "queryList")
     public List<Article> articleList(Map<String, Object> params);
 
+    @SelectProvider(type = ArticleSqlProvider.class, method = "getById")
+    public Article getById(Integer id);
+
+    @UpdateProvider(type = ArticleSqlProvider.class, method = "access")
+    int increaseAccess(Integer id);
+
     class ArticleSqlProvider extends BaseSQLProvider<Article> {
 
-//        public String queryLearnResouceByParams(final Map<String, Object> params) {
-//            StringBuffer sql =new StringBuffer();
-//            sql.append("select * from learn_resource where 1=1");
-//            if(!StringUtil.isNull((String)params.get("author"))){
-//                sql.append(" and author like '%").append((String)params.get("author")).append("%'");
-//            }
-//            if(!StringUtil.isNull((String)params.get("title"))){
-//                sql.append(" and title like '%").append((String)params.get("title")).append("%'");
-//            }
-//            System.out.println("查询sql=="+sql.toString());
-//            return sql.toString();
-//        }
+        public String access(Integer id) {
+            return "update T_ARTICLE set access=(access + 1) where id=#{id}";
+        }
 
-
+        public String getById(Integer id) {
+            return "select " +
+                    "id, " +
+                    "title, " +
+                    "tags, " +
+                    "type, " +
+                    "abstract as abstractContent, " +
+                    "content, " +
+                    "raw_file_link as rawFileLink, " +
+                    "access, " +
+                    "create_time as createTime " +
+                    "from T_ARTICLE where id = #{id}";
+        }
 
         public String queryList(final Map<String, Object> params) {
             StringBuffer sql = new StringBuffer();
