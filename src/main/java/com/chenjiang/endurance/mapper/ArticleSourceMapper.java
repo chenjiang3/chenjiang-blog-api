@@ -16,40 +16,60 @@ import java.util.Map;
 @Component
 public interface ArticleSourceMapper {
 
+    @SelectProvider(type = ArticleSourceSqlProvider.class, method = "getById")
+    ArticleSource getById(Integer id);
+
     @InsertProvider(type = ArticleSourceSqlProvider.class, method = "insert")
     int add(ArticleSource articleSource);
 
     @SelectProvider(type = ArticleSourceSqlProvider.class, method = "queryList")
     List<ArticleSource> sourceList();
 
-    @DeleteProvider(type = ArticleSourceSqlProvider.class, method = "deleteById")
-    int deleteById(Integer id);
+    @DeleteProvider(type = ArticleSourceSqlProvider.class, method = "update2")
+    int deleteById(ArticleSource source);
 
     class ArticleSourceSqlProvider extends BaseSQLProvider<ArticleSource> {
         @Override
         protected String table() {
-            return "T_ARTICLE_SOURCE";
+            return "T_ARTICLE_CLASSIFY";
         }
 
-        public String deleteById(Integer id) {
-            return new SQL().DELETE_FROM(table()).WHERE("id=#{id}").toString();
+        public String getById(Integer id) {
+            StringBuffer sb = new StringBuffer();
+            sb.append("select id, name, is_deleted as isDeleted, type from " + table() + " where id = " + id);
+            return sb.toString();
+        }
+
+        public String update2(ArticleSource source) {
+            StringBuffer sb = new StringBuffer();
+            sb.append("update " + table() + " " +
+                    "set name = '" + source.getName() + "', " +
+                    "type = " + source.getType() + ", " +
+                    "is_deleted = " + source.isDeleted() + " " +
+                    "where id = " + source.getId());
+            System.out.println(sb.toString());
+            return sb.toString();
         }
 
         public String queryList(final Map<String, Object> params) {
             StringBuffer sql = new StringBuffer();
             sql.append("select id, " +
-                    "name " +
+                    "name, " +
+                    "type, " +
+                    "is_deleted as isDeleted " +
                     "from " +
                     this.table() +
                     " " +
-                    "WHERE 1=1");
+                    "WHERE 1=1 and " +
+                    "is_deleted != true");
             System.out.println("查询sql == " + sql.toString());
             return sql.toString();
         }
 
         @Override
         protected void doInsert(ArticleSource articleSource, SQL sql) {
-            sql.VALUES("name", "#{name}");
+            sql.VALUES("name", "#{name}")
+                    .VALUES("type", "#{type}");
         }
     }
 

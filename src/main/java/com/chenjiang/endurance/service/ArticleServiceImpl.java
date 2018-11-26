@@ -25,6 +25,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (article.getAbstractContent().length() >= 512) {
             throw new ArticleException(BasicErrorCode.ABSTRACT_TOO_LONG);
         }
+        article.setAccess(0);
         int result = articleMapper.add(article);
         return result == 1;
     }

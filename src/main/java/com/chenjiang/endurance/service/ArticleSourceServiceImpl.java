@@ -1,10 +1,13 @@
 package com.chenjiang.endurance.service;
 
+import com.chenjiang.endurance.common.BasicErrorCode;
 import com.chenjiang.endurance.entity.ArticleSource;
+import com.chenjiang.endurance.exception.ArticleSourceException;
 import com.chenjiang.endurance.mapper.ArticleSourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,7 +29,13 @@ public class ArticleSourceServiceImpl implements ArticleSourceService {
     }
 
     @Override
+    @Transactional
     public int deleteById(Integer id) {
-        return mapper.deleteById(id);
+        ArticleSource source = mapper.getById(id);
+        if (source == null) {
+            throw new ArticleSourceException(BasicErrorCode.ARTICLE_SOURCE_NOT_FOUND);
+        }
+        source.setDeleted(true);
+        return mapper.deleteById(source);
     }
 }

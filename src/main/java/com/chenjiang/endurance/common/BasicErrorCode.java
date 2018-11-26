@@ -11,8 +11,12 @@ public enum BasicErrorCode {
 
     UNAUTHORIZED("权限错误", "base.error.unauthorized"),
 
-    ABSTRACT_TOO_LONG("文章摘要超过长度限制", "base.error.abstract_too_long")
+    ABSTRACT_TOO_LONG("文章摘要超过长度限制", "base.error.abstract_too_long"),
+
+    ARTICLE_SOURCE_NOT_FOUND("无法找到记录", "base.error.article_source_not_find")
+
     ;
+
 
     BasicErrorCode(String message, String code) {
         this.message = message;

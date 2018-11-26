@@ -45,30 +45,28 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE` (
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
-# 文章来源表
-CREATE TABLE IF NOT EXISTS `T_ARTICLE_SOURCE` (
+# 文章分类表
+CREATE TABLE IF NOT EXISTS `T_ARTICLE_CLASSIFY` (
   `id` int(11) primary key auto_increment,
   `name` varchar(64) not null ,
+  `is_deleted` boolean not null default false ,
+  `type` tinyint not null default 0, # 0: 类型 1: 来源
 
   `version` int(11) not null default 0,
   `create_time` timestamp not null default current_timestamp,
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
-desc T_ARTICLE_SOURCE;
-select * from T_ARTICLE;
 
-# CREATE TABLE `T_CUSTOMER` (
-#   `id` int(11) primary key auto_increment,
-#   `name` varchar(32) not null ,
-#   `contacts` varchar(32) ,
-#   `mobile` varchar(12),
-#   `address` varchar(256),
-#   `comment` varchar(1024),
-#
-#   `version` int(11) not null default 0,
-#   `create_time` timestamp not null default current_timestamp,
-#   `update_time` timestamp null default null
-# ) engine = InnoDB charset=utf8;
+
+select * from T_ARTICLE_CLASSIFY;
+
+update T_ARTICLE_CLASSIFY set name = '转载', type = 1, is_deleted = false where id = 1;
+
+update T_ARTICLE_CLASSIFY set name = 'C++', type = 0, is_deleted = true where id = 2;
+
+
+
+
 
 
