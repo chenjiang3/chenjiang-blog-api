@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +26,12 @@ public class UserController {
         User user = userService.findUserByMobile(mobile);
         user.setPassword(null);
         return user;
+    }
+
+    @GetMapping(value = "/list")
+    public List<User> userList(@RequestParam(value = "pageIndex") int pageIndex,
+                               @RequestParam(value = "pageSize") int pageSize) {
+        return userService.userList(pageIndex, pageSize);
     }
 
     @GetMapping(value = "/author-info/{mobile}")

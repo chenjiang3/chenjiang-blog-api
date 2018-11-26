@@ -5,8 +5,11 @@ import com.chenjiang.endurance.entity.RegisterBody;
 import com.chenjiang.endurance.entity.User;
 import com.chenjiang.endurance.entity.Token;
 
+import java.util.List;
+
 public interface UserService {
     User findUserByMobile(String mobile);
+    List<User> userList(int pageIndex, int pageSize);
     User authorInfo(String mobile);
     String register(RegisterBody registerUser);
     Token login(LoginBody loginBody);

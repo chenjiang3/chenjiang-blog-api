@@ -8,6 +8,8 @@ import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Mapper
 public interface UserMapper {
@@ -31,10 +33,17 @@ public interface UserMapper {
     })
     public User findUserByMobile(@Param("mobile") String mobile);
 
+    @SelectProvider(type = UserSqlProvider.class, method = "listSql")
+    public List<User> userList(int pageIndex, int pageSize);
+
     @Select("SELECT * FROM T_USER ORDER BY USER_ID DESC LIMIT 0, 1;")
     public Integer findMaxUserId();
 
     class UserSqlProvider extends BaseSQLProvider<User> {
+
+        public String listSql(int pageIndex, int pageSize) {
+            return "";
+        }
 
         @Override
         protected String table() {

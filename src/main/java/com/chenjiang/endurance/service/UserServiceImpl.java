@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService {
             throw new UserException(BasicErrorCode.USER_NOT_FIND);
         }
         return user;
+    }
+
+    @Override
+    public List<User> userList(int pageIndex, int pageSize) {
+        return userMapper.userList(pageIndex, pageSize);
     }
 
     @Override

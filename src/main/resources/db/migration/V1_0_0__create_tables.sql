@@ -76,8 +76,5 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE_CLASSIFY` (
 ) engine = InnoDB charset=utf8;
 
 
-select * from T_USER;
-
-update T_USER set brief='爱撸铁的程序员~~~', access = 100;
 
 
