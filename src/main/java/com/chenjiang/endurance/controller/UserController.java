@@ -27,6 +27,12 @@ public class UserController {
         return user;
     }
 
+    @GetMapping(value = "/author-info/{mobile}")
+    public User authorInfo(@PathVariable(value = "mobile") String mobile) {
+        User user = userService.authorInfo(mobile);
+        return user;
+    }
+
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String register(@RequestBody RegisterBody registerUser) {
         return this.userService.register(registerUser);

@@ -7,10 +7,16 @@ CREATE TABLE `T_USER` (
   `SALT` text NOT NULL,
   `PASSWORD` text NOT NULL,
   `STATUS` text NOT NULL,
+  `CLIENT_ID` int(11) NOT NULL,
+  `brief` text null,
+  `header_src` text null,
+  `email` text null,
+  `access` int(11) not null default 0,
+
   `VERSION` int(11) NOT NULL DEFAULT '0',
   `CREATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UPDATE_TIME` timestamp NULL DEFAULT NULL,
-  `CLIENT_ID` int(11) NOT NULL,
+
   PRIMARY KEY (`ID`),
   UNIQUE KEY `USER_ID` (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,6 +45,18 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE` (
   `raw_file_link` varchar(128) null ,
   `access` int not null default 0,
   `source` varchar(64) not null ,
+  `author` text not null ,
+
+  `version` int(11) not null default 0,
+  `create_time` timestamp not null default current_timestamp,
+  `update_time` timestamp null default null
+) engine = InnoDB charset=utf8;
+
+# 用户-文章 关系表
+CREATE TABLE IF NOT EXISTS `T_USER_ARTICLE` (
+  `id` int(11) primary key auto_increment,
+  `user_id` int(11) not null ,
+  `article_id` int(11) not null ,
 
   `version` int(11) not null default 0,
   `create_time` timestamp not null default current_timestamp,
@@ -58,15 +76,8 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE_CLASSIFY` (
 ) engine = InnoDB charset=utf8;
 
 
+select * from T_USER;
 
-select * from T_ARTICLE_CLASSIFY;
-
-update T_ARTICLE_CLASSIFY set name = '转载', type = 1, is_deleted = false where id = 1;
-
-update T_ARTICLE_CLASSIFY set name = 'C++', type = 0, is_deleted = true where id = 2;
-
-
-
-
+update T_USER set brief='爱撸铁的程序员~~~', access = 100;
 
 

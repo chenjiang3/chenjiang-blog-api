@@ -35,6 +35,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User authorInfo(String mobile) {
+        User user = userMapper.findUserByMobile(mobile);
+        if (user == null) {
+            throw new UserException(BasicErrorCode.USER_NOT_FIND);
+        }
+        user.setPassword("");
+        user.setSalt("");
+        return user;
+    }
+
+    @Override
     public String register(RegisterBody registerBody) {
         Integer maxUserId = this.userMapper.findMaxUserId();
         User user = new User();

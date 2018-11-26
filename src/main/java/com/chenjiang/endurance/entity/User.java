@@ -1,5 +1,7 @@
 package com.chenjiang.endurance.entity;
 
+import io.swagger.models.auth.In;
+
 enum UserStatus {
     Normal("正常", "Normal");
 
@@ -30,9 +32,46 @@ public class User {
     private String salt;
     private String password;
     private String status;
+    private String brief;
+    private String headerSrc;
+    private String email;
+    private Integer access;
+
     private Integer version;
     private Long createTime;
     private Long updateTime;
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getHeaderSrc() {
+        return headerSrc;
+    }
+
+    public void setHeaderSrc(String headerSrc) {
+        this.headerSrc = headerSrc;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getAccess() {
+        return access;
+    }
+
+    public void setAccess(Integer access) {
+        this.access = access;
+    }
 
     public void setStatus() {
         this.status = UserStatus.Normal.getCode();

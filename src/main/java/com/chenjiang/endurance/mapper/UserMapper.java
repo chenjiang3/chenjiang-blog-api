@@ -24,6 +24,10 @@ public interface UserMapper {
             @Result(column = "USER_NAME", property = "userName", javaType = String.class),
             @Result(column = "SALT", property = "salt", javaType = String.class),
             @Result(column = "STATUS", property = "status", javaType = String.class),
+            @Result(column = "brief", property = "brief", javaType = String.class),
+            @Result(column = "header_src", property = "headerSrc", javaType = String.class),
+            @Result(column = "email", property = "email", javaType = String.class),
+            @Result(column = "access", property = "access", javaType = Integer.class)
     })
     public User findUserByMobile(@Param("mobile") String mobile);
 

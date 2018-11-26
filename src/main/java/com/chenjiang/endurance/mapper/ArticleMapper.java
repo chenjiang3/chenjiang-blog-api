@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public interface ArticleMapper {
 
     class ArticleSqlProvider extends BaseSQLProvider<Article> {
 
+        private Logger logger = LoggerFactory.getLogger(this.getClass());
+
         public String access(Integer id) {
             return "update T_ARTICLE set access=(access + 1) where id=#{id}";
         }
@@ -45,6 +49,7 @@ public interface ArticleMapper {
                     "raw_file_link as rawFileLink, " +
                     "access, " +
                     "source, " +
+                    "author, " +
                     "create_time as createTime " +
                     "from T_ARTICLE where id = #{id}";
         }
@@ -60,9 +65,10 @@ public interface ArticleMapper {
                     "raw_file_link as rawFileLink, " +
                     "access, " +
                     "source, " +
+                    "author, " +
                     "create_time as createTime " +
                     "from T_ARTICLE WHERE 1=1");
-            System.out.println("查询sql == " + sql.toString());
+            logger.debug("查询sql == " + sql.toString());
             return sql.toString();
         }
 

@@ -43,19 +43,13 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-aop"
 
-//    implementation "tk.mybatis:mapper-spring-boot-starter"
     implementation "com.github.pagehelper:pagehelper-spring-boot-starter"
 
     implementation 'com.google.guava:guava:27.0-jre'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
 
-//    implementation "org.springframework.boot:spring-boot-starter-redis"
-
     implementation "io.springfox:springfox-swagger2:2.9.2"
     implementation "io.springfox:springfox-swagger-ui:2.9.2"
-
-//    compileOnly 'org.projectlombok:lombok:1.18.2'
-//    apt 'org.projectlombok:lombok:1.18.2'
 
     implementation 'mysql:mysql-connector-java'
 
