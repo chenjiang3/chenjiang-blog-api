@@ -10,12 +10,12 @@ public class ApiDecorator implements ApiListener {
 
     @Override
     public void onRequest(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("onRequest");
+//        System.out.println("onRequest");
     }
 
     @Override
     public void onResponse(HttpServletResponse response) {
-        System.out.println("onResponse");
+//        System.out.println("onResponse");
         response.setHeader("X-TIMESTAMP", String.valueOf(TimeUtil.currentTS()));
     }
 

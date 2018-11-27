@@ -75,6 +75,23 @@ CREATE TABLE IF NOT EXISTS `T_ARTICLE_CLASSIFY` (
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
+# 标签表
+CREATE TABLE IF NOT EXISTS `T_TAGS` (
+  `id` int(11) primary key auto_increment,
+  `name` varchar(64) not null ,
+  `deleted` boolean not null default false ,
+  `type` tinyint null default 0,
 
+  `version` int(11) not null default 0,
+  `create_time` timestamp not null default current_timestamp,
+  `update_time` timestamp null default null
+) engine = InnoDB charset=utf8;
+
+
+
+select * from T_USER_ARTICLE;
+select * from T_ARTICLE;
+
+delete from T_USER_ARTICLE;
 
 

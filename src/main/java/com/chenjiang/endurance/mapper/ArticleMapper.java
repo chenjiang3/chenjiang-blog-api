@@ -3,10 +3,7 @@ package com.chenjiang.endurance.mapper;
 import com.chenjiang.endurance.common.BaseSQLProvider;
 import com.chenjiang.endurance.common.SQL;
 import com.chenjiang.endurance.entity.Article;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,6 +16,7 @@ import java.util.Map;
 public interface ArticleMapper {
 
     @InsertProvider(type = ArticleSqlProvider.class, method = "insert")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
     public int add(Article article);
 
     @SelectProvider(type = ArticleSqlProvider.class, method = "queryList")
@@ -87,6 +85,7 @@ public interface ArticleMapper {
                     .VALUES("raw_file_link", "#{rawFileLink}")
                     .VALUES("access", "#{access}")
                     .VALUES("source", "#{source}")
+                    .VALUES("author", "#{author}")
                     .VALUES("create_time", "#{createTime}");
         }
     }

@@ -29,6 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/list")
+    @CheckToken
     public List<User> userList(@RequestParam(value = "pageIndex") int pageIndex,
                                @RequestParam(value = "pageSize") int pageSize) {
         return userService.userList(pageIndex, pageSize);

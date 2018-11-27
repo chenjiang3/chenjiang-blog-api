@@ -6,6 +6,8 @@ import com.chenjiang.endurance.common.SQL;
 import com.chenjiang.endurance.entity.User;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,6 +35,9 @@ public interface UserMapper {
     })
     public User findUserByMobile(@Param("mobile") String mobile);
 
+    @SelectProvider(type = UserSqlProvider.class, method = "findById")
+    public User findById(String id);
+
     @SelectProvider(type = UserSqlProvider.class, method = "listSql")
     public List<User> userList(int pageIndex, int pageSize);
 
@@ -41,8 +46,42 @@ public interface UserMapper {
 
     class UserSqlProvider extends BaseSQLProvider<User> {
 
+        private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+        public String findById(String uid) {
+            String sql = new SQL()
+                    .SELECT("ID")
+                    .SELECT("CLIENT_ID as clientId")
+                    .SELECT("USER_ID as userId")
+                    .SELECT("MOBILE as mobile")
+                    .SELECT("USER_NAME as userName")
+                    .SELECT("STATUS as status")
+                    .SELECT("brief")
+                    .SELECT("header_src as headerSrc")
+                    .SELECT("email as email")
+                    .SELECT("access as access")
+                    .FROM(table())
+                    .WHERE("USER_ID = #{uid}")
+                    .toString();
+            return sql;
+        }
+
         public String listSql(int pageIndex, int pageSize) {
-            return "";
+            String sql = new SQL()
+                    .SELECT("ID")
+                    .SELECT("CLIENT_ID as clientId")
+                    .SELECT("USER_ID as userId")
+                    .SELECT("MOBILE as mobile")
+                    .SELECT("USER_NAME as userName")
+                    .SELECT("STATUS as status")
+                    .SELECT("brief")
+                    .SELECT("header_src as headerSrc")
+                    .SELECT("email as email")
+                    .SELECT("access as access")
+                    .FROM(table())
+                    .toString();
+            logger.debug("UserMapper listSql = " + sql);
+            return sql;
         }
 
         @Override

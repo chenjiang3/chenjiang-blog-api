@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(String id) {
+        return userMapper.findById(id);
+    }
+
+    @Override
     public List<User> userList(int pageIndex, int pageSize) {
         return userMapper.userList(pageIndex, pageSize);
     }

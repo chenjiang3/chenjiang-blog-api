@@ -6,6 +6,7 @@ import com.chenjiang.endurance.service.AuthorizationService;
 import com.chenjiang.endurance.service.AuthorizationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -26,6 +27,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         CheckToken access = method.getAnnotation(CheckToken.class);
         if (access != null) {
             String authorization = request.getHeader("Authorization");
+            if (StringUtils.isEmpty(authorization)) {
+                throw new BaseException(BasicErrorCode.UNAUTHORIZED);
+            }
             if (authorizationService.checkToken(authorization)) {
                 return true;
             }

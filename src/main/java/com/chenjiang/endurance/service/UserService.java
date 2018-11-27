@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface UserService {
     User findUserByMobile(String mobile);
+    User findById(String id);
     List<User> userList(int pageIndex, int pageSize);
     User authorInfo(String mobile);
     String register(RegisterBody registerUser);
