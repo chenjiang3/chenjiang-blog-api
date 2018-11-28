@@ -5,10 +5,9 @@ import com.chenjiang.endurance.interceptor.CheckToken;
 import com.chenjiang.endurance.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tags")
@@ -22,5 +21,10 @@ public class TagController {
     public boolean add(@RequestBody Tag tag) {
         int ret = tagService.add(tag);
         return ret == 1;
+    }
+
+    @GetMapping(value = "/list")
+    public List<Tag> list() {
+        return tagService.list();
     }
 }

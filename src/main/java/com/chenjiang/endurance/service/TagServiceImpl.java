@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Component
 @Service
 public class TagServiceImpl implements TagService {
@@ -18,5 +20,10 @@ public class TagServiceImpl implements TagService {
         tag.setDeleted(false);
         tag.setType(0);
         return tagMapper.add(tag);
+    }
+
+    @Override
+    public List<Tag> list() {
+        return tagMapper.list();
     }
 }

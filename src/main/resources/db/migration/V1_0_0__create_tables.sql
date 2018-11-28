@@ -1,5 +1,5 @@
 # 用户表
-CREATE TABLE `T_USER` (
+CREATE TABLE `t_user` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `USER_ID` int(11) NOT NULL,
   `MOBILE` text NOT NULL,
