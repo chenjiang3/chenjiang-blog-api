@@ -3,12 +3,14 @@ package com.chenjiang.endurance.controller;
 import com.chenjiang.endurance.common.AuthorizationUtil;
 import com.chenjiang.endurance.common.BasicErrorCode;
 import com.chenjiang.endurance.entity.Article;
+import com.chenjiang.endurance.entity.PageResult;
 import com.chenjiang.endurance.entity.User;
 import com.chenjiang.endurance.exception.ArticleException;
 import com.chenjiang.endurance.interceptor.CheckToken;
 import com.chenjiang.endurance.service.ArticleService;
 import com.chenjiang.endurance.service.UserService;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -45,9 +47,9 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/list")
-    public List<Article> articleList(@RequestParam(value = "pageIndex", required = true) int pageIndex,
-                                     @RequestParam(value = "pageSize", required = true) int pageSize) {
-        return articleService.articleList(pageIndex, pageSize);
+    public PageResult<Article> articleList(@RequestParam("offset") int offset,
+                                           @RequestParam("limit") int limit) {
+        return articleService.articleList(new RowBounds(offset, limit));
     }
 
     @GetMapping(value = "/{id}")

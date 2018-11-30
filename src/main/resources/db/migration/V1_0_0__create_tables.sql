@@ -87,11 +87,10 @@ CREATE TABLE IF NOT EXISTS `T_TAGS` (
   `update_time` timestamp null default null
 ) engine = InnoDB charset=utf8;
 
+select * from T_ARTICLE LIMIT 100 OFFSET 20;
 
-
-select * from T_USER_ARTICLE;
-select * from T_ARTICLE;
-
-delete from T_USER_ARTICLE;
+SELECT id, title, tags, type, abstract as abstractContent, content, raw_file_link as rawFileLink, access, source, author, create_time as createTime
+FROM T_ARTICLE
+WHERE (1=1) limit 10 offset 1
 
 

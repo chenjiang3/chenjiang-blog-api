@@ -2,13 +2,15 @@ package com.chenjiang.endurance.service;
 
 import com.chenjiang.endurance.common.BasicErrorCode;
 import com.chenjiang.endurance.entity.Article;
+import com.chenjiang.endurance.entity.PageResult;
 import com.chenjiang.endurance.entity.User;
 import com.chenjiang.endurance.entity.UserArticle;
 import com.chenjiang.endurance.exception.ArticleException;
 import com.chenjiang.endurance.mapper.ArticleMapper;
 import com.chenjiang.endurance.mapper.UserArticleMapper;
-import com.github.pagehelper.PageHelper;
+import com.sun.rowset.internal.Row;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -45,9 +47,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> articleList(int pageIndex, int pageSize) {
-        PageHelper.startPage(pageIndex, pageSize);
-        return articleMapper.articleList(new HashMap<>());
+    public PageResult<Article> articleList(RowBounds rowBounds) {
+        int total = articleMapper.total();
+        List<Article> list = articleMapper.articleList(rowBounds);
+        PageResult<Article> result = new PageResult<>(list, rowBounds.getOffset(), rowBounds.getLimit(), total);
+        return result;
     }
 
     @Override
