@@ -22,20 +22,22 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HandlerMethod handlerMethod = (HandlerMethod)handler;
-        Method method = handlerMethod.getMethod();
-        CheckToken access = method.getAnnotation(CheckToken.class);
-        if (access != null) {
-            String authorization = request.getHeader("Authorization");
-            if (StringUtils.isEmpty(authorization)) {
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod)handler;
+            Method method = handlerMethod.getMethod();
+            CheckToken access = method.getAnnotation(CheckToken.class);
+            if (access != null) {
+                String authorization = request.getHeader("Authorization");
+                if (StringUtils.isEmpty(authorization)) {
+                    throw new BaseException(BasicErrorCode.UNAUTHORIZED);
+                }
+                if (authorizationService.checkToken(authorization)) {
+                    return true;
+                }
                 throw new BaseException(BasicErrorCode.UNAUTHORIZED);
             }
-            if (authorizationService.checkToken(authorization)) {
-                return true;
-            }
-            throw new BaseException(BasicErrorCode.UNAUTHORIZED);
+            return true;
         }
-
         return true;
     }
 
